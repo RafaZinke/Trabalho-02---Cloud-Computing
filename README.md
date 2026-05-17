@@ -106,7 +106,7 @@ Acesso à aplicação: **http://localhost:5000**
 
 ```bash
 git clone https://github.com/RafaZinke/Trabalho-02---Cloud-Computing.git
-cd forum-online
+cd Trabalho-02---Cloud-Computing
 ```
 
 ### Passo 2 (opcional): Ajustar variáveis de ambiente
@@ -195,7 +195,7 @@ docker compose logs -f db       # apenas banco
 
 ```bash
 docker volume ls
-docker volume inspect forum-online_forum_db_data
+docker volume inspect trabalho-02---cloud-computing_forum_db_data
 ```
 
 ### Derrubar containers
