@@ -1,4 +1,4 @@
-# 💬 Fórum Online - Aplicação Multicontainer
+#  Fórum Online - Aplicação Multicontainer
 
 > **Trabalho 02 - Cloud Computing**
 > UNIDAVI - Sistemas de Informação
@@ -6,25 +6,15 @@
 
 ---
 
-## 📋 Descrição da Aplicação
+##  Descrição da Aplicação
 
 Esta aplicação simula a infraestrutura de um **Fórum Online**, onde usuários podem se cadastrar, criar tópicos de discussão em diferentes categorias e responder a outros tópicos. O projeto foi totalmente conteinerizado utilizando **Docker** e **Docker Compose**, simulando um ambiente real de Cloud Computing com múltiplos containers conectados.
 
 A aplicação realiza operações **CRUD** completas sobre dois tipos de entidades principais (usuários e tópicos), além de respostas, persistindo todos os dados em um banco PostgreSQL rodando em container separado, com volume Docker para garantir a persistência mesmo após reinicializações.
 
-### Funcionalidades
 
-- ✅ Cadastro, listagem e exclusão de **usuários**
-- ✅ Criação, listagem, visualização e exclusão de **tópicos**
-- ✅ Sistema de **respostas** para cada tópico
-- ✅ Organização por **categorias** (Geral, Tecnologia, Educação, Cloud, Dúvidas, Anúncios)
-- ✅ Página inicial com **estatísticas** do fórum
-- ✅ Interface web responsiva
-- ✅ Healthcheck dos containers
 
----
-
-## 🛠 Tecnologias Utilizadas
+## Tecnologias Utilizadas
 
 | Camada | Tecnologia |
 |--------|-----------|
@@ -38,7 +28,7 @@ A aplicação realiza operações **CRUD** completas sobre dois tipos de entidad
 
 ---
 
-## 🏗 Arquitetura
+## Arquitetura
 
 ```
 ┌────────────────────────────────────────────────────────────┐
@@ -104,7 +94,7 @@ Acesso à aplicação: **http://localhost:5000**
 
 ---
 
-## 🚀 Instruções Completas de Execução
+## Instruções Completas de Execução
 
 ### Pré-requisitos
 
@@ -115,7 +105,7 @@ Acesso à aplicação: **http://localhost:5000**
 ### Passo 1: Clonar o repositório
 
 ```bash
-git clone https://github.com/SEU_USUARIO/forum-online.git
+git clone https://github.com/RafaZinke/Trabalho-02---Cloud-Computing.git
 cd forum-online
 ```
 
@@ -178,7 +168,7 @@ docker exec -it forum_db psql -U forumuser -d forumdb
 
 ---
 
-## 🐳 Comandos do Docker Compose
+## Comandos do Docker Compose
 
 ### Subir o ambiente
 
@@ -246,10 +236,8 @@ docker compose down -v
 A imagem da aplicação está publicada em:
 
 ```
-docker pull SEU_USUARIO_DOCKERHUB/forum-online-app:latest
+docker pull rafaelzink/forum-online-app:latest
 ```
-
-> ⚠ Substitua `SEU_USUARIO_DOCKERHUB` pelo seu usuário no DockerHub.
 
 ### Como publicar a imagem (passo a passo)
 
@@ -258,17 +246,17 @@ docker pull SEU_USUARIO_DOCKERHUB/forum-online-app:latest
 docker login
 
 # 2. Buildar a imagem com tag do seu usuário
-docker build -t SEU_USUARIO_DOCKERHUB/forum-online-app:latest .
+docker build -t rafaelzink/forum-online-app:latest .
 
 # 3. Publicar
-docker push SEU_USUARIO_DOCKERHUB/forum-online-app:latest
+docker push rafaelzink/forum-online-app:latest
 ```
 
 Para usar a imagem do DockerHub no `docker-compose.yml`, substitua o bloco `build` do serviço `app` por:
 
 ```yaml
 app:
-  image: SEU_USUARIO_DOCKERHUB/forum-online-app:latest
+  image: rafaelzink/forum-online-app:latest
 ```
 
 ---
@@ -301,7 +289,7 @@ forum-online/
 
 ---
 
-## ✅ Checklist do Trabalho
+## Checklist do Trabalho
 
 - [x] 1 container da aplicação (Flask)
 - [x] 1 container do banco de dados (PostgreSQL)
@@ -316,6 +304,6 @@ forum-online/
 
 ---
 
-## 👤 Autor
+## Autor
 
-Trabalho desenvolvido por **[SEU NOME]** para a disciplina de **Cloud Computing**, ministrada pelo **Prof. Esp. Ademar Perfoll Junior** no curso de **Sistemas de Informação** da **UNIDAVI**.
+Trabalho desenvolvido por Rafael Zink para a disciplina de **Cloud Computing**, ministrada pelo **Prof. Esp. Ademar Perfoll Junior** no curso de **Sistemas de Informação** da **UNIDAVI**.
