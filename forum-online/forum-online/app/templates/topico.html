@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+
+{% block titulo %}{{ topico.titulo }}{% endblock %}
+
+{% block conteudo %}
+<a href="{{ url_for('index') }}" class="link-voltar">← Voltar para o fórum</a>
+
+<article class="topico-detalhe">
+    <span class="categoria categoria-{{ topico.categoria|lower }}">{{ topico.categoria }}</span>
+    <h2>{{ topico.titulo }}</h2>
+    <div class="topico-meta">
+        Publicado por <strong>{{ topico.autor }}</strong> em
+        {{ topico.criado_em.strftime('%d/%m/%Y às %H:%M') }}
+    </div>
+    <div class="topico-corpo">
+        {{ topico.conteudo }}
+    </div>
+    <form action="{{ url_for('excluir_topico', topico_id=topico.id) }}" method="POST"
+          onsubmit="return confirm('Excluir este tópico e todas as suas respostas?');"
+          style="margin-top:1rem;">
+        <button type="submit" class="btn btn-perigo">Excluir Tópico</button>
+    </form>
+</article>
+
+<section class="respostas">
+    <h3>Respostas ({{ respostas|length }})</h3>
+    {% if respostas %}
+        {% for r in respostas %}
+            <div class="resposta">
+                <div class="resposta-meta">
+                    <strong>{{ r.autor }}</strong> em
+                    {{ r.criado_em.strftime('%d/%m/%Y às %H:%M') }}
+                </div>
+                <div class="resposta-corpo">{{ r.conteudo }}</div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <p class="vazio-mini">Ainda não há respostas. Seja o primeiro!</p>
+    {% endif %}
+</section>
+
+<section class="form-resposta">
+    <h3>Adicionar Resposta</h3>
+    {% if not usuarios %}
+        <div class="alerta alerta-erro">
+            É necessário ter um usuário cadastrado para responder.
+            <a href="{{ url_for('novo_usuario') }}">Cadastrar agora</a>
+        </div>
+    {% else %}
+    <form method="POST" action="{{ url_for('responder_topico', topico_id=topico.id) }}">
+        <div class="campo">
+            <label for="autor_id">Responder como:</label>
+            <select name="autor_id" id="autor_id" required>
+                <option value="">-- Selecione --</option>
+                {% for u in usuarios %}
+                    <option value="{{ u.id }}">{{ u.nome }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="campo">
+            <label for="conteudo">Sua resposta</label>
+            <textarea name="conteudo" id="conteudo" rows="5" required placeholder="Escreva sua resposta..."></textarea>
+        </div>
+        <div class="acoes">
+            <button type="submit" class="btn btn-primario">Enviar Resposta</button>
+        </div>
+    </form>
+    {% endif %}
+</section>
+{% endblock %}

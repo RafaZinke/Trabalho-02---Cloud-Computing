@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block titulo %}Fórum Online - Início{% endblock %}
+
+{% block conteudo %}
+<section class="hero">
+    <h2>Bem-vindo ao Fórum Online</h2>
+    <p>Discuta, pergunte e compartilhe conhecimento com a comunidade.</p>
+</section>
+
+<section class="stats">
+    <div class="stat-card">
+        <span class="stat-num">{{ total_usuarios }}</span>
+        <span class="stat-lbl">Usuários</span>
+    </div>
+    <div class="stat-card">
+        <span class="stat-num">{{ total_topicos }}</span>
+        <span class="stat-lbl">Tópicos</span>
+    </div>
+    <div class="stat-card">
+        <span class="stat-num">{{ total_respostas }}</span>
+        <span class="stat-lbl">Respostas</span>
+    </div>
+</section>
+
+<section class="lista-topicos">
+    <div class="lista-header">
+        <h3>Tópicos Recentes</h3>
+        <a href="{{ url_for('novo_topico') }}" class="btn btn-primario">+ Novo Tópico</a>
+    </div>
+
+    {% if topicos %}
+        {% for t in topicos %}
+            <article class="topico-item">
+                <div class="topico-info">
+                    <span class="categoria categoria-{{ t.categoria|lower }}">{{ t.categoria }}</span>
+                    <a href="{{ url_for('ver_topico', topico_id=t.id) }}" class="topico-titulo">{{ t.titulo }}</a>
+                    <div class="topico-meta">
+                        por <strong>{{ t.autor }}</strong> em
+                        {{ t.criado_em.strftime('%d/%m/%Y às %H:%M') }}
+                    </div>
+                </div>
+                <div class="topico-respostas">
+                    <span class="num">{{ t.qtd_respostas }}</span>
+                    <span class="lbl">respostas</span>
+                </div>
+            </article>
+        {% endfor %}
+    {% else %}
+        <div class="vazio">
+            <p>Nenhum tópico ainda. Seja o primeiro a criar um!</p>
+            <a href="{{ url_for('novo_topico') }}" class="btn btn-primario">Criar primeiro tópico</a>
+        </div>
+    {% endif %}
+</section>
+{% endblock %}

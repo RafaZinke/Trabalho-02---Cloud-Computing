@@ -1,0 +1,60 @@
+# Docker Compose - Forum Online
+# Orquestra dois containers: aplicacao Flask + banco PostgreSQL
+
+services:
+
+  # ---------- CONTAINER DO BANCO DE DADOS ----------
+  db:
+    image: postgres:16-alpine
+    container_name: forum_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${DB_NAME:-forumdb}
+      POSTGRES_USER: ${DB_USER:-forumuser}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-forumpass}
+    volumes:
+      # Volume nomeado garante persistencia dos dados entre reinicios
+      - forum_db_data:/var/lib/postgresql/data
+    networks:
+      - forum_net
+    ports:
+      # Exposta apenas para debug local; em producao pode ser removida
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${DB_USER:-forumuser} -d ${DB_NAME:-forumdb}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # ---------- CONTAINER DA APLICACAO ----------
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: forum-online-app:latest
+    container_name: forum_app
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: ${DB_NAME:-forumdb}
+      DB_USER: ${DB_USER:-forumuser}
+      DB_PASSWORD: ${DB_PASSWORD:-forumpass}
+      SECRET_KEY: ${SECRET_KEY:-forum-online-secret-key}
+    ports:
+      - "5000:5000"
+    networks:
+      - forum_net
+
+# ---------- VOLUMES NOMEADOS (PERSISTENCIA) ----------
+volumes:
+  forum_db_data:
+    driver: local
+
+# ---------- REDE INTERNA DOS CONTAINERS ----------
+networks:
+  forum_net:
+    driver: bridge

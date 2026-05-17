@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block titulo %}Fórum Online{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">💬 Fórum Online</h1>
+            <nav class="nav">
+                <a href="{{ url_for('index') }}">Início</a>
+                <a href="{{ url_for('listar_usuarios') }}">Usuários</a>
+                <a href="{{ url_for('novo_usuario') }}">Novo Usuário</a>
+                <a href="{{ url_for('novo_topico') }}">Novo Tópico</a>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container conteudo">
+        {% with mensagens = get_flashed_messages(with_categories=true) %}
+            {% if mensagens %}
+                {% for categoria, msg in mensagens %}
+                    <div class="alerta alerta-{{ categoria }}">{{ msg }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        {% block conteudo %}{% endblock %}
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>Trabalho 02 - Cloud Computing - UNIDAVI | Prof. Ademar Perfoll Junior</p>
+            <p>Aplicação Flask + PostgreSQL conteinerizada com Docker</p>
+        </div>
+    </footer>
+</body>
+</html>

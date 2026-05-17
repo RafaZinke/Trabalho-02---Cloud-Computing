@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block titulo %}Novo Tópico{% endblock %}
+
+{% block conteudo %}
+<div class="card-form">
+    <h2>Criar Novo Tópico</h2>
+
+    {% if not usuarios %}
+        <div class="alerta alerta-erro">
+            Você precisa cadastrar um usuário antes de criar um tópico.
+            <a href="{{ url_for('novo_usuario') }}">Cadastrar usuário agora</a>
+        </div>
+    {% else %}
+    <form method="POST" action="{{ url_for('novo_topico') }}">
+        <div class="campo">
+            <label for="autor_id">Autor</label>
+            <select name="autor_id" id="autor_id" required>
+                <option value="">-- Selecione um usuário --</option>
+                {% for u in usuarios %}
+                    <option value="{{ u.id }}">{{ u.nome }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="campo">
+            <label for="categoria">Categoria</label>
+            <select name="categoria" id="categoria" required>
+                <option value="">-- Selecione uma categoria --</option>
+                <option value="Geral">Geral</option>
+                <option value="Tecnologia">Tecnologia</option>
+                <option value="Educacao">Educação</option>
+                <option value="Cloud">Cloud Computing</option>
+                <option value="Duvidas">Dúvidas</option>
+                <option value="Anuncios">Anúncios</option>
+            </select>
+        </div>
+
+        <div class="campo">
+            <label for="titulo">Título</label>
+            <input type="text" id="titulo" name="titulo" required maxlength="200"
+                   placeholder="Digite um título claro e direto">
+        </div>
+
+        <div class="campo">
+            <label for="conteudo">Conteúdo</label>
+            <textarea id="conteudo" name="conteudo" rows="8" required
+                      placeholder="Descreva sua dúvida, ideia ou discussão..."></textarea>
+        </div>
+
+        <div class="acoes">
+            <a href="{{ url_for('index') }}" class="btn btn-secundario">Cancelar</a>
+            <button type="submit" class="btn btn-primario">Publicar Tópico</button>
+        </div>
+    </form>
+    {% endif %}
+</div>
+{% endblock %}
