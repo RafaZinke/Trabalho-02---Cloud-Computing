@@ -1,4 +1,4 @@
-#  Fórum Online - Aplicação Multicontainer
+# Fórum Online - Aplicação Multicontainer
 
 > **Trabalho 02 - Cloud Computing**
 > UNIDAVI - Sistemas de Informação
@@ -6,7 +6,7 @@
 
 ---
 
-##  Descrição da Aplicação
+## Descrição da Aplicação
 
 Esta aplicação simula a infraestrutura de um **Fórum Online**, onde usuários podem se cadastrar, criar tópicos de discussão em diferentes categorias e responder a outros tópicos. O projeto foi totalmente conteinerizado utilizando **Docker** e **Docker Compose**, simulando um ambiente real de Cloud Computing com múltiplos containers conectados.
 
@@ -63,7 +63,7 @@ A aplicação realiza operações **CRUD** completas sobre dois tipos de entidad
 
 ---
 
-## ⚙ Variáveis de Ambiente
+## Variáveis de Ambiente
 
 Definidas no arquivo `.env`:
 
@@ -83,7 +83,7 @@ Variáveis internas configuradas no `docker-compose.yml`:
 
 ---
 
-## 🔌 Portas Utilizadas
+## Portas Utilizadas
 
 | Serviço | Porta no Container | Porta no Host |
 |---------|-------------------|---------------|
@@ -111,10 +111,10 @@ cd Trabalho-02---Cloud-Computing
 
 ### Passo 2 (opcional): Ajustar variáveis de ambiente
 
-O arquivo `.env` já está pronto com valores padrão. Se quiser personalizar:
+O arquivo `.env` já está pronto com valores padrão. Se quiser personalizar, edite em qualquer editor de texto (Bloco de Notas, VS Code, nano, etc.):
 
 ```bash
-nano .env
+notepad .env
 ```
 
 ### Passo 3: Subir os containers
@@ -194,7 +194,11 @@ docker compose logs -f db       # apenas banco
 ### Verificar volumes
 
 ```bash
+# Listar todos os volumes
 docker volume ls
+
+# Inspecionar o volume de dados do Postgres
+# (o nome do volume tem como prefixo o nome da pasta do projeto)
 docker volume inspect trabalho-02---cloud-computing_forum_db_data
 ```
 
@@ -207,7 +211,7 @@ docker compose down -v          # remove volume também
 
 ---
 
-## 🗃 Persistência de Dados
+## Persistência de Dados
 
 A persistência é garantida pelo volume Docker nomeado `forum_db_data`, declarado no `docker-compose.yml`:
 
@@ -221,7 +225,7 @@ volumes:
 1. Cadastre um usuário e crie um tópico na aplicação.
 2. Pare os containers: `docker compose down`
 3. Suba novamente: `docker compose up -d`
-4. Acesse a aplicação: os dados estarão lá. ✅
+4. Acesse a aplicação: os dados estarão lá.
 
 Para remover os dados, é necessário derrubar com a flag `-v`:
 
@@ -231,7 +235,7 @@ docker compose down -v
 
 ---
 
-## 🐋 Imagem no DockerHub
+## Imagem no DockerHub
 
 A imagem da aplicação está publicada em:
 
@@ -261,10 +265,10 @@ app:
 
 ---
 
-## 📁 Estrutura do Projeto
+## Estrutura do Projeto
 
 ```
-forum-online/
+Trabalho-02---Cloud-Computing/
 ├── app/
 │   ├── app.py                  # Aplicação Flask principal
 │   ├── requirements.txt        # Dependências Python
